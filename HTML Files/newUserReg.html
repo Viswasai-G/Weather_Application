@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>My Weather Application</title>
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/greeting}" th:object="${user}" method="post">
+    <table>
+    <tr>
+        <td> Name: </td>
+        <td><input type="text" th:field="*{name}" /> </td>
+        <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</td>
+    </tr>
+        <tr>
+            <td> Email ID: </td>
+            <td><input type="text" th:field="*{emailid}" /> </td>
+            <td th:if="${#fields.hasErrors('emailid')}" th:errors="*{emailid}">Email ID error</td>
+        </tr>
+    <tr>
+        <td> ZipCode: </td>
+        <td><input type="number" th:field="*{zip}" th:size="5"/></td>
+        <td th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">zip error</td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="submit" /></td>
+        <td><input type="reset" value="reset" /></td>
+    </tr>
+    </table>
+</form>
+</body>
+</html>
