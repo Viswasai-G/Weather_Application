@@ -19,6 +19,14 @@ import java.util.Map;
 public class Database {
     //new ProfileCredentialsProvider("default")
     AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_WEST_2).build();
+    
+    //To use DynamoDb locally, set up a local DynamoDb and uncomment the below lines of code. 
+    //Comment out the above connection to DynamoDB web service
+    
+
+    //AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+    //.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
+    //.build();
 
     DynamoDB dynamoDB = new DynamoDB(client);
 
