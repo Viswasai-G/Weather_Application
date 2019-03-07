@@ -12,11 +12,13 @@ public class User {
 
     private String name;
 
+    //Validation conditions for the attribute 'zip'.
     @NotNull
     @Min(value = 10000, message = "Zipcode must be valid.")
     @Max(value = 99999, message = "Zipcode must be valid.")
     private int zip;
 
+    //Validation conditions for the attribute 'emailid'.
     @NotNull(message = "Must not be null.")
     @Email(message = "Must be a valid email address.")
     private String emailid;
@@ -25,6 +27,8 @@ public class User {
     private weatherData weather;
 
 
+    //Setters and Getters.
+    
     public String getEmailid() {
         return emailid;
     }
