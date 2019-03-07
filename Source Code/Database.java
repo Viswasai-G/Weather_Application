@@ -27,11 +27,14 @@ public class Database {
     //AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
     //.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
     //.build();
+    
+    //Create a DynammoDB object
 
     DynamoDB dynamoDB = new DynamoDB(client);
 
     String tableName = "weatherDB";
 
+    //Create a table in DynamoDB. Returns "table already exists" if table is already present in the DB.
     public void createTable(){
 
         try{
@@ -47,6 +50,8 @@ public class Database {
             System.err.println(e.getMessage());
         }
     }
+    
+    //Add Data to the created/Already existing table in DB. 
 
     public void addData(String tableName, String userName,String Email, int zip, String city, Double cityId,
                         Double temp, Double temp_min, Double temp_max, Double pressure, Double humid){
@@ -55,6 +60,8 @@ public class Database {
 
         try{
             System.out.println("Adding new item to DB...");
+            
+            //Create two Hashmaps and add data in order to maintain the structure of data similair to user class.
 
             final Map<String, Object> weatherInfo = new HashMap<String, Object>();
             weatherInfo.put("temp", temp);
@@ -67,6 +74,8 @@ public class Database {
             cityInfo.put("cityName", city);
             cityInfo.put("cityId", cityId);
             cityInfo.put("main", weatherInfo);
+            
+            //Add data into the table with primary key "Email"
 
             PutItemOutcome outcome = table.putItem(new Item().withPrimaryKey("Email", Email ).withInt("zip", zip).with("name",
                     userName).withMap("weather", cityInfo));
@@ -77,6 +86,8 @@ public class Database {
             System.err.println(e.getMessage());
         }
     }
+    
+    //Read data from DB.
 
     public User readData(String tableName, String Email){
 
@@ -84,10 +95,14 @@ public class Database {
         userDetails.setEmailid(Email);
 
         Table table = dynamoDB.getTable(tableName);
+        
+        //Retrieve item from table using primary key "Email"
 
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("Email",Email);
 
         try{
+            
+            //Convert the outcome to JSON format and add data to the user class.
             System.out.println("Attempting to read:");
             Gson g = new Gson();
             String results = table.getItem(spec).toJSON();
