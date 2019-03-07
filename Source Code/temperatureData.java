@@ -10,6 +10,7 @@ public class temperatureData {
     private double pressure;
     private double humidity;
 
+    //Setters and Getters
     public double getTemp() {
         return temp;
     }
